@@ -1,0 +1,22 @@
+class Input {
+    // Horizontal movement can be -1 (left), 0 (no input), 1 (right)
+    function int getHorizontalMovement() {
+        var int horizontalMovement;
+        var int pressedKey;
+
+        let pressedKey = Keyboard.keyPressed();
+        
+        // input left 
+        if (pressedKey = 130) { let horizontalMovement = -1; }   // left arrow
+        if (pressedKey = 65) { let horizontalMovement = -1; }   // A
+
+        // input right 
+        if (pressedKey = 132) { let horizontalMovement = 1; }   // right arrow
+        if (pressedKey = 68) { let horizontalMovement = 1; }   // D
+
+        // no input
+        if (pressedKey = 0) { let horizontalMovement = 0; } 
+
+        return horizontalMovement;
+    }
+}

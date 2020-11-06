@@ -1,0 +1,34 @@
+class PoorRandomizer {
+    field Array multipliers;
+    field int currentIndex;
+
+    constructor PoorRandomizer new() {
+        let multipliers = Array.new(10);
+        let currentIndex = 0;
+
+        // ten palindromic primes  101, 131, 151, 181, 191, 313, 353, 373, 383, 727
+        let multipliers[0] = 101;
+        let multipliers[1] = 131;
+        let multipliers[2] = 151;
+        let multipliers[3] = 181;
+        let multipliers[4] = 191;
+        let multipliers[5] = 313;
+        let multipliers[6] = 353;
+        let multipliers[7] = 373;
+        let multipliers[8] = 383;
+        let multipliers[9] = 727;
+        return this;
+    }
+
+    method int getRandom(int seed, int max) {
+        var int num, random;
+        let num = seed * multipliers[currentIndex];
+        let random = num - (num / max * max);
+        
+
+        let currentIndex = currentIndex + 1;
+        let currentIndex = currentIndex - (currentIndex / 10 * 10);
+        return random;
+     
+    }
+}

@@ -1,0 +1,10 @@
+class Main {
+    function void main(){
+
+        var Brickfall brickfall;
+        let brickfall = Brickfall.new();
+        do brickfall.run();
+
+        return;
+    }
+}

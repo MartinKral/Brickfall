@@ -1,0 +1,46 @@
+class Brickfall {
+    field Player player;
+    field BrickSpawner brickSpawner;
+
+/*
+    We split the screen to 32x16 16px blocks
+*/
+    constructor Brickfall new(){        
+        let player = Player.new(16,15); // initialize player to the bottom center of the screen
+        let brickSpawner = BrickSpawner.new(10); // overall number of bricks
+        return this;
+    }
+
+    method void run() {
+        do gameLoop();
+        return;
+    }
+
+    method void gameLoop(){
+        var boolean runGame;
+        var int horizontalMovement;
+            
+        let runGame = true;
+
+        while (runGame) {
+            do Sys.wait(50);
+
+            do brickSpawner.update();
+            
+            let horizontalMovement = Input.getHorizontalMovement();
+            if (horizontalMovement = 0) {
+                do player.drawIdle();
+            }
+
+            if (horizontalMovement = -1) {
+                do player.moveLeft();
+            }
+
+            if (horizontalMovement = 1) {
+                do player.moveRight();
+            }            
+        }
+
+        return;
+    } 
+}

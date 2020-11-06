@@ -1,0 +1,7 @@
+class DrawingUtils {
+    function int getDrawingMemoryAddress(int x, int y) {
+        var int memAddress;
+        let memAddress = 16384 + x + (y * 16 * 32); // * 16 since we are using blocks
+        return memAddress;
+    }
+}

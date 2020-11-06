@@ -1,0 +1,79 @@
+class Brick { 
+    field int x, y, initialDelay; // current position on game plane (32x16, 16px blocks) 
+
+    constructor Brick new(int _x, int _y, int _initialDelay){
+        let x = _x;
+        let y = _y;
+        let initialDelay = _initialDelay;
+
+        return this;
+    }
+
+    method int getX() {
+        return x;
+    }
+
+    method int getY() {
+        return y;
+    }
+
+    method void setPosition(int _x, int _y) {
+        
+        do clearPixels();
+
+        let x = _x;
+        let y = _y;
+
+        do draw();
+
+        return;
+    }
+
+    method void tryMove() {
+        if (initialDelay = 0) {
+            do move();
+        }
+
+        if (0 < initialDelay) {
+            let initialDelay = initialDelay -1;
+        }
+
+        return;
+    }
+
+    method void move() {        
+        if (y < 15) {
+            do clearPixels();
+            let y = y + 1;
+            do draw();
+        }    
+
+        return;
+    }
+
+    method void draw() {
+        var int memAddress;
+        let memAddress = DrawingUtils.getDrawingMemoryAddress(x, y);
+
+        do Memory.poke(memAddress+320, -1);
+        do Memory.poke(memAddress+352, -1);
+        do Memory.poke(memAddress+384, -16381);
+        do Memory.poke(memAddress+416, -16381);
+        do Memory.poke(memAddress+448, -1);
+        do Memory.poke(memAddress+480, -1);
+        return;
+    }
+
+    method void clearPixels() {
+        var int memAddress;
+        let memAddress = DrawingUtils.getDrawingMemoryAddress(x, y);
+
+        do Memory.poke(memAddress+320, 0);
+        do Memory.poke(memAddress+352, 0);
+        do Memory.poke(memAddress+384, 0);
+        do Memory.poke(memAddress+416, 0);
+        do Memory.poke(memAddress+448, 0);
+        do Memory.poke(memAddress+480, 0);
+        return;
+    }
+}

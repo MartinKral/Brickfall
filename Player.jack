@@ -1,0 +1,125 @@
+class Player {
+    field int x, y; // current position on game plane (32x16, 16px blocks) 
+
+    constructor Player new(int _x, int _y){
+        let x = _x;
+        let y = _y;
+        return this;
+    }
+
+    method void moveLeft() {
+        do clearPixels();
+
+        if (0 < x) {
+            let x = x - 1;
+        }
+
+        do drawLeft();
+
+        return;
+    }
+
+    method void moveRight() {
+        do clearPixels();
+
+        if (x < 31) {
+            let x = x + 1;
+        }
+
+        do drawRight();
+
+        return;
+    }
+
+    method void clearPixels() {
+        var int memAddress;
+        let memAddress = DrawingUtils.getDrawingMemoryAddress(x, y);
+
+        do Memory.poke(memAddress+0, 0);
+        do Memory.poke(memAddress+32, 0);
+        do Memory.poke(memAddress+64, 0);
+        do Memory.poke(memAddress+96, 0);
+        do Memory.poke(memAddress+128, 0);
+        do Memory.poke(memAddress+160, 0);
+        do Memory.poke(memAddress+192, 0);
+        do Memory.poke(memAddress+224, 0);
+        do Memory.poke(memAddress+256, 0);
+        do Memory.poke(memAddress+288, 0);
+        do Memory.poke(memAddress+320, 0);
+        do Memory.poke(memAddress+352, 0);
+        do Memory.poke(memAddress+384, 0);
+        do Memory.poke(memAddress+416, 0);
+        do Memory.poke(memAddress+448, 0);
+        do Memory.poke(memAddress+480, 0);
+        return;
+    }
+
+    method void drawIdle() {
+        var int memAddress;
+        let memAddress = DrawingUtils.getDrawingMemoryAddress(x, y);
+
+        do Memory.poke(memAddress+0, 8184);
+        do Memory.poke(memAddress+32, 8196);
+        do Memory.poke(memAddress+64, 9828);
+        do Memory.poke(memAddress+96, 9828);
+        do Memory.poke(memAddress+128, 8196);
+        do Memory.poke(memAddress+160, 9156);
+        do Memory.poke(memAddress+192, 8196);
+        do Memory.poke(memAddress+224, 8184);
+        do Memory.poke(memAddress+256, 384);
+        do Memory.poke(memAddress+288, 4080);
+        do Memory.poke(memAddress+320, 4080);
+        do Memory.poke(memAddress+352, 4080);
+        do Memory.poke(memAddress+384, 4080);
+        do Memory.poke(memAddress+416, 1632);
+        do Memory.poke(memAddress+448, 1632);
+        do Memory.poke(memAddress+480, 3696);
+        return;
+    }
+
+    method void drawLeft() {
+        var int memAddress;
+        let memAddress = DrawingUtils.getDrawingMemoryAddress(x, y);
+
+        do Memory.poke(memAddress+0, 4080);
+        do Memory.poke(memAddress+32, 4104);
+        do Memory.poke(memAddress+64, 4296);
+        do Memory.poke(memAddress+96, 4296);
+        do Memory.poke(memAddress+128, 4104);
+        do Memory.poke(memAddress+160, 4216);
+        do Memory.poke(memAddress+192, 4104);
+        do Memory.poke(memAddress+224, 4080);
+        do Memory.poke(memAddress+256, 384);
+        do Memory.poke(memAddress+288, 2016);
+        do Memory.poke(memAddress+320, 2016);
+        do Memory.poke(memAddress+352, 2016);
+        do Memory.poke(memAddress+384, 2016);
+        do Memory.poke(memAddress+416, 1632);
+        do Memory.poke(memAddress+448, 1632);
+        do Memory.poke(memAddress+480, 1904);
+        return;
+    }
+
+    method void drawRight() {
+        var int memAddress;
+        let memAddress = DrawingUtils.getDrawingMemoryAddress(x, y);
+        do Memory.poke(memAddress+0, 4080);
+        do Memory.poke(memAddress+32, 4104);
+        do Memory.poke(memAddress+64, 4872);
+        do Memory.poke(memAddress+96, 4872);
+        do Memory.poke(memAddress+128, 4104);
+        do Memory.poke(memAddress+160, 7688);
+        do Memory.poke(memAddress+192, 4104);
+        do Memory.poke(memAddress+224, 4080);
+        do Memory.poke(memAddress+256, 384);
+        do Memory.poke(memAddress+288, 2016);
+        do Memory.poke(memAddress+320, 2016);
+        do Memory.poke(memAddress+352, 2016);
+        do Memory.poke(memAddress+384, 2016);
+        do Memory.poke(memAddress+416, 1632);
+        do Memory.poke(memAddress+448, 1632);
+        do Memory.poke(memAddress+480, 3808);
+        return;
+    }
+
+}

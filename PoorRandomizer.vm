@@ -1,0 +1,124 @@
+function PoorRandomizer.new 0
+push constant 2
+call Memory.alloc 1
+pop pointer 0
+push constant 10
+call Array.new 1
+pop this 0
+push constant 0
+pop this 1
+push constant 0
+push this 0
+add
+push constant 101
+pop temp 0
+pop pointer 1
+push temp 0
+pop that 0
+push constant 1
+push this 0
+add
+push constant 131
+pop temp 0
+pop pointer 1
+push temp 0
+pop that 0
+push constant 2
+push this 0
+add
+push constant 151
+pop temp 0
+pop pointer 1
+push temp 0
+pop that 0
+push constant 3
+push this 0
+add
+push constant 181
+pop temp 0
+pop pointer 1
+push temp 0
+pop that 0
+push constant 4
+push this 0
+add
+push constant 191
+pop temp 0
+pop pointer 1
+push temp 0
+pop that 0
+push constant 5
+push this 0
+add
+push constant 313
+pop temp 0
+pop pointer 1
+push temp 0
+pop that 0
+push constant 6
+push this 0
+add
+push constant 353
+pop temp 0
+pop pointer 1
+push temp 0
+pop that 0
+push constant 7
+push this 0
+add
+push constant 373
+pop temp 0
+pop pointer 1
+push temp 0
+pop that 0
+push constant 8
+push this 0
+add
+push constant 383
+pop temp 0
+pop pointer 1
+push temp 0
+pop that 0
+push constant 9
+push this 0
+add
+push constant 727
+pop temp 0
+pop pointer 1
+push temp 0
+pop that 0
+push pointer 0
+return
+function PoorRandomizer.getRandom 2
+push argument 0
+pop pointer 0
+push argument 1
+push this 1
+push this 0
+add
+pop pointer 1
+push that 0
+call Math.multiply 2
+pop local 0
+push local 0
+push local 0
+push argument 2
+call Math.divide 2
+push argument 2
+call Math.multiply 2
+sub
+pop local 1
+push this 1
+push constant 1
+add
+pop this 1
+push this 1
+push this 1
+push constant 10
+call Math.divide 2
+push constant 10
+call Math.multiply 2
+sub
+pop this 1
+push local 1
+return

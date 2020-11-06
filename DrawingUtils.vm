@@ -1,0 +1,13 @@
+function DrawingUtils.getDrawingMemoryAddress 1
+push constant 16384
+push argument 0
+add
+push argument 1
+push constant 16
+call Math.multiply 2
+push constant 32
+call Math.multiply 2
+add
+pop local 0
+push local 0
+return

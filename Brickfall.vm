@@ -1,0 +1,74 @@
+function Brickfall.new 0
+push constant 2
+call Memory.alloc 1
+pop pointer 0
+push constant 16
+push constant 15
+call Player.new 2
+pop this 0
+push constant 10
+call BrickSpawner.new 1
+pop this 1
+push pointer 0
+return
+function Brickfall.run 0
+push argument 0
+pop pointer 0
+push pointer 0
+call Brickfall.gameLoop 1
+pop temp 0
+push constant 0
+return
+function Brickfall.gameLoop 2
+push argument 0
+pop pointer 0
+push constant 0
+not
+pop local 0
+label WHILE_EXP0
+push local 0
+not
+if-goto WHILE_END0
+push constant 50
+call Sys.wait 1
+pop temp 0
+push this 1
+call BrickSpawner.update 1
+pop temp 0
+call Input.getHorizontalMovement 0
+pop local 1
+push local 1
+push constant 0
+eq
+if-goto IF_TRUE0
+goto IF_FALSE0
+label IF_TRUE0
+push this 0
+call Player.drawIdle 1
+pop temp 0
+label IF_FALSE0
+push local 1
+push constant 1
+neg
+eq
+if-goto IF_TRUE1
+goto IF_FALSE1
+label IF_TRUE1
+push this 0
+call Player.moveLeft 1
+pop temp 0
+label IF_FALSE1
+push local 1
+push constant 1
+eq
+if-goto IF_TRUE2
+goto IF_FALSE2
+label IF_TRUE2
+push this 0
+call Player.moveRight 1
+pop temp 0
+label IF_FALSE2
+goto WHILE_EXP0
+label WHILE_END0
+push constant 0
+return

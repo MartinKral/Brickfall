@@ -1,0 +1,116 @@
+class BrickSpawner {
+
+    field int fallenBricksCount;
+    field int tickCounter;
+
+    field Array brickArray;  
+    field int brickArrayLength;
+
+    field int movesToSkip;
+    field int currentMovesToSkip; 
+    field int movesSkipped;
+ 
+    field PoorRandomizer poorRandomizer;
+
+    constructor BrickSpawner new(int numberOfBricks) {
+        var int index;
+        var int spawnDelay;
+        var Brick brick;
+        
+        let movesToSkip = 10;
+        let currentMovesToSkip = movesToSkip;
+        let movesSkipped = 0;
+      
+
+        let fallenBricksCount = 0;
+        let tickCounter = 0;
+
+        let brickArrayLength = numberOfBricks;
+        let brickArray = Array.new(brickArrayLength);  
+
+        let poorRandomizer = PoorRandomizer.new();
+
+        let index = 0;
+        while (index < brickArrayLength) {          
+
+            let spawnDelay = index * 1;
+            let brick = Brick.new(index, 0, spawnDelay);
+            let brickArray[index] = brick; 
+
+            let index = index +1;            
+        }
+
+
+
+        return this;
+    }
+
+    method void update() {  
+        let tickCounter = tickCounter + 1;
+
+        let movesSkipped = movesSkipped +1;
+        if (currentMovesToSkip < movesSkipped) {
+            let movesSkipped = 0;
+            do resetFallenBricks();
+            do moveBricks();
+        }
+
+        return;     
+    }
+
+    method void moveBricks() {
+        var int index;
+        var Brick brick;
+
+        while (index < brickArrayLength) {
+            let brick = brickArray[index];
+            do brick.tryMove();
+
+            let index = index + 1;
+        }
+
+        return;
+    }
+
+    method void resetFallenBricks() {
+        var int index;
+        var Brick brick;
+
+        while (index < brickArrayLength) {
+            let brick = brickArray[index];
+            do tryResetBrick(brick);
+
+            let index = index + 1;
+
+       
+        }
+
+ 
+        return;
+    }
+
+    method void tryResetBrick(Brick brick) {
+        var int y;
+        var int newPositionX;
+
+        let y = brick.getY();
+
+        // brick is on the floor
+        if (y = 15) { 
+            let newPositionX = poorRandomizer.getRandom(tickCounter, 31);
+            let fallenBricksCount = fallenBricksCount + 1;
+            do brick.setPosition(newPositionX,0);
+            
+
+            if (0 < currentMovesToSkip) {
+                let currentMovesToSkip = movesToSkip - (fallenBricksCount / brickArrayLength);
+            }
+        }
+
+        return;
+    }
+
+
+
+
+}
