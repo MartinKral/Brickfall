@@ -7,6 +7,14 @@ class Player {
         return this;
     }
 
+    method int getX() {
+        return x;
+    }
+
+    method int getY() {
+        return y;
+    }
+
     method void moveLeft() {
         do clearPixels();
 
@@ -119,6 +127,28 @@ class Player {
         do Memory.poke(memAddress+416, 1632);
         do Memory.poke(memAddress+448, 1632);
         do Memory.poke(memAddress+480, 3808);
+        return;
+    }
+
+    method void drawDeath() {
+        var int memAddress;
+        let memAddress = DrawingUtils.getDrawingMemoryAddress(x, y);
+        do Memory.poke(memAddress+0, 0);
+        do Memory.poke(memAddress+32, -1);
+        do Memory.poke(memAddress+64, -1);
+        do Memory.poke(memAddress+96, -16381);
+        do Memory.poke(memAddress+128, -16381);
+        do Memory.poke(memAddress+160, -1);
+        do Memory.poke(memAddress+192, -1);
+        do Memory.poke(memAddress+224, 8184);
+        do Memory.poke(memAddress+256, 8196);
+        do Memory.poke(memAddress+288, 10836);
+        do Memory.poke(memAddress+320, 9252);
+        do Memory.poke(memAddress+352, 10836);
+        do Memory.poke(memAddress+384, 8196);
+        do Memory.poke(memAddress+416, 9156);
+        do Memory.poke(memAddress+448, 8196);
+        do Memory.poke(memAddress+480, 8184);
         return;
     }
 

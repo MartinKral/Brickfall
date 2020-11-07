@@ -1,18 +1,45 @@
 class Brickfall {
     field Player player;
-    field BrickSpawner brickSpawner;
+    field BrickController brickController;
 
 /*
     We split the screen to 32x16 16px blocks
 */
     constructor Brickfall new(){        
         let player = Player.new(16,15); // initialize player to the bottom center of the screen
-        let brickSpawner = BrickSpawner.new(10); // overall number of bricks
+        let brickController = BrickController.new(23); // overall number of bricks
         return this;
     }
 
     method void run() {
+        do startScreen();
         do gameLoop();
+        do gameOverScreen();
+        return;
+    }
+
+    method void startScreen(){    
+        // clear any previous graphics
+        do Screen.clearScreen();
+
+        do Output.moveCursor(5, 28);
+        do Output.printString("BRICKFALL");
+
+        do Output.moveCursor(8,28);
+        do Output.printString("Controls:");
+
+        do Output.moveCursor(10,16);
+        do Output.printString("Arrow keys Left | Right or A + D");
+
+        do Output.moveCursor(14,20);
+        do Output.printString("Press SPACEBAR to start");
+
+        do player.drawIdle();
+
+        do waitForSpacebarPressed();
+
+        // clear the start screen 
+        do Screen.clearScreen();
         return;
     }
 
@@ -23,9 +50,9 @@ class Brickfall {
         let runGame = true;
 
         while (runGame) {
-            do Sys.wait(50);
+            do Sys.wait(40);
 
-            do brickSpawner.update();
+            do brickController.update();
             
             let horizontalMovement = Input.getHorizontalMovement();
             if (horizontalMovement = 0) {
@@ -38,9 +65,76 @@ class Brickfall {
 
             if (horizontalMovement = 1) {
                 do player.moveRight();
-            }            
+            }  
+
+            do drawCurrentScore();  
+
+            let runGame = isPlayerAlive();         
+        }
+
+        // stop the game for a brief moment so player can see what happened
+        do player.drawDeath();
+        do Sys.wait(3000);        
+        return;
+    } 
+
+    method void drawCurrentScore() {
+        var int currentScore;
+        let currentScore = brickController.getFallenBricksCount();
+
+        do Output.moveCursor(0,0);
+        do Output.printString("Score: ");
+        do Output.printInt(currentScore);
+        return;
+    }
+
+    method boolean isPlayerAlive() {
+        var boolean wasPlayerHit;
+        var int playerX;
+        var int playerY;
+
+        let playerX = player.getX();
+        let playerY = player.getY();
+
+        let wasPlayerHit = brickController.hasBrickAtPosition(playerX, playerY);
+        return ~wasPlayerHit;
+    }
+
+    method void gameOverScreen() {
+        var int finalScore;
+        let finalScore = brickController.getFallenBricksCount();
+
+        do Screen.clearScreen();
+
+        do Output.moveCursor(5, 28);
+        do Output.printString("BRICKFALL");
+
+        do Output.moveCursor(9,27);
+        do Output.printString("Final score:");
+
+        do Output.moveCursor(11,32);
+        do Output.printInt(finalScore);
+
+        do Output.moveCursor(14,28);
+        do Output.printString("GAME OVER");
+
+        do Output.moveCursor(18,22);
+        do Output.printString("Press SPACEBAR to EXIT");
+
+        do waitForSpacebarPressed();
+
+        return;
+    }
+
+    method void waitForSpacebarPressed() {
+        var boolean isSpacebarPressed;
+
+        let isSpacebarPressed = false;
+        // wait for spacebar
+        while (~isSpacebarPressed) {
+            let isSpacebarPressed = Input.isKeyPressed(32); // keycode 32 = spacebar
         }
 
         return;
-    } 
+    }
 }

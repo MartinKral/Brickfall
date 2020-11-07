@@ -19,4 +19,18 @@ class Input {
 
         return horizontalMovement;
     }
+
+
+
+    function bool isKeyPressed(int keyCode) {
+        var boolean isPressed;
+        var int pressedKey;
+
+        let isPressed = false;
+        let pressedKey = Keyboard.keyPressed();
+
+        if (pressedKey = keyCode) { let isPressed = true;}
+
+        return isPressed;
+    }
 }

@@ -1,4 +1,4 @@
-class BrickSpawner {
+class BrickController {
 
     field int fallenBricksCount;
     field int tickCounter;
@@ -12,12 +12,12 @@ class BrickSpawner {
  
     field PoorRandomizer poorRandomizer;
 
-    constructor BrickSpawner new(int numberOfBricks) {
+    constructor BrickController new(int numberOfBricks) {
         var int index;
-        var int spawnDelay;
-        var Brick brick;
+        var int randomPositionX;
+        var Brick brick;        
         
-        let movesToSkip = 10;
+        let movesToSkip = 5;
         let currentMovesToSkip = movesToSkip;
         let movesSkipped = 0;
       
@@ -31,10 +31,9 @@ class BrickSpawner {
         let poorRandomizer = PoorRandomizer.new();
 
         let index = 0;
-        while (index < brickArrayLength) {          
-
-            let spawnDelay = index * 1;
-            let brick = Brick.new(index, 0, spawnDelay);
+        while (index < brickArrayLength) { 
+            let randomPositionX = poorRandomizer.getRandom(index, 31); 
+            let brick = Brick.new(randomPositionX, 0, index);
             let brickArray[index] = brick; 
 
             let index = index +1;            
@@ -62,6 +61,7 @@ class BrickSpawner {
         var int index;
         var Brick brick;
 
+        let index = 0;
         while (index < brickArrayLength) {
             let brick = brickArray[index];
             do brick.tryMove();
@@ -76,6 +76,7 @@ class BrickSpawner {
         var int index;
         var Brick brick;
 
+        let index = 0;
         while (index < brickArrayLength) {
             let brick = brickArray[index];
             do tryResetBrick(brick);
@@ -108,6 +109,43 @@ class BrickSpawner {
         }
 
         return;
+    }
+
+    method int getFallenBricksCount() {
+        var int count;
+        let count = fallenBricksCount;
+        return count;
+    }
+
+    method boolean hasBrickAtPosition(int x, int y) {
+        
+        var int index;
+        var Brick brick;
+        var int brickX;
+        var int brickY;
+
+        var boolean isBrickAtPosition;
+        let isBrickAtPosition = false;
+
+
+        let index = 0;
+        while (index < brickArrayLength) {   
+            let brick = brickArray[index];
+
+            let brickX = brick.getX();
+            let brickY = brick.getY();
+
+            if (brickX = x) {
+                if (brickY = y) {
+                    let isBrickAtPosition = true;
+                }
+            }     
+
+            let index = index + 1;  
+        }
+
+
+        return isBrickAtPosition;
     }
 
 
