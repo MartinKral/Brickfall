@@ -76,4 +76,9 @@ class Brick {
         do Memory.poke(memAddress+480, 0);
         return;
     }
+
+    method void dispose() {
+        do Memory.deAlloc(this);
+        return;
+    }
 }

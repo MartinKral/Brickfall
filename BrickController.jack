@@ -148,6 +148,25 @@ class BrickController {
         return isBrickAtPosition;
     }
 
+    method void dispose(){
+
+        var int index;
+        var Brick brick;
+
+        let index = 0;
+        while (index < brickArrayLength) {
+            let brick = brickArray[index];
+            do brick.dispose();
+
+            let index = index + 1;
+
+       
+        }
+        
+        do Memory.deAlloc(this);
+        return;
+    }
+
 
 
 

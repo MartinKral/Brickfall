@@ -4,6 +4,7 @@ class Main {
         var Brickfall brickfall;
         let brickfall = Brickfall.new();
         do brickfall.run();
+        do brickfall.dispose();
 
         return;
     }

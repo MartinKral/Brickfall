@@ -506,3 +506,17 @@ goto WHILE_EXP0
 label WHILE_END0
 push constant 0
 return
+function Brickfall.dispose 0
+push argument 0
+pop pointer 0
+push this 0
+call Player.dispose 1
+pop temp 0
+push this 1
+call BrickController.dispose 1
+pop temp 0
+push pointer 0
+call Memory.deAlloc 1
+pop temp 0
+push constant 0
+return

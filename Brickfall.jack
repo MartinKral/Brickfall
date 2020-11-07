@@ -137,4 +137,11 @@ class Brickfall {
 
         return;
     }
+
+    method void dispose(){
+        do player.dispose();
+        do brickController.dispose();
+        do Memory.deAlloc(this);
+        return;
+    }
 }
